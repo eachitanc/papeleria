@@ -1,0 +1,12 @@
+.table>thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #16a085;
+    color: white;
+    text-align: center !important;
+}
+
+.bg-eacii {
+    background-color: #16a085;
+    color: white;
+}
