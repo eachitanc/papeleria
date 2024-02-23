@@ -20,7 +20,7 @@ $con = new Conexion();
             <li class="list-group-item submenu enfocar">
                 <a href="javascript:void(0)" class="d-flex align-items-center link-success" data-mdb-toggle="collapse" data-mdb-target="#submenu1" onclick="toggleArrow(this)">
                     <i class="fa-solid fa-address-book fa-lg me-3"></i>
-                    <span>NÓMINA</span>
+                    <span>PAPELERÍA</span>
                     <i class="fas fa-caret-right ms-auto arrowIcon"></i>
                 </a>
                 <div class="collapse shadow w-100" id="submenu1">
@@ -46,36 +46,38 @@ $con = new Conexion();
                     </ul>
                 </div>
             </li>
-            <li class="list-group-item submenu">
-                <a href="javascript:void(0)" class="d-flex align-items-center" data-mdb-toggle="collapse" data-mdb-target="#submenu2" onclick="toggleArrow(this)">
-                    <i class="fas fa-envelope me-3"></i>
-                    <span>Opción 3</span>
-                    <i class="fas fa-caret-right ms-auto arrowIcon"></i>
-                </a>
-                <div class="collapse" id="submenu2">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="javascript:void(0)" class="d-flex align-items-center ripple">
-                                <i class="fas fa-inbox me-3"></i>
-                                <span>Subopción 4</span>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="javascript:void(0)" class="d-flex align-items-center ripple">
-                                <i class="fas fa-paper-plane me-3"></i>
-                                <span>Subopción 5</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <a href="javascript:void(0)" class="d-flex align-items-center ripple">
-                    <i class="fas fa-bell me-3"></i>
-                    <span>Opción 4</span>
-                </a>
-            </li>
-            <?php if ($_SESSION['rol'] == 1) { ?>
+            <?php if (false) { ?>
+                <li class="list-group-item submenu">
+                    <a href="javascript:void(0)" class="d-flex align-items-center" data-mdb-toggle="collapse" data-mdb-target="#submenu2" onclick="toggleArrow(this)">
+                        <i class="fas fa-envelope me-3"></i>
+                        <span>Opción 3</span>
+                        <i class="fas fa-caret-right ms-auto arrowIcon"></i>
+                    </a>
+                    <div class="collapse" id="submenu2">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="javascript:void(0)" class="d-flex align-items-center ripple">
+                                    <i class="fas fa-inbox me-3"></i>
+                                    <span>Subopción 4</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="javascript:void(0)" class="d-flex align-items-center ripple">
+                                    <i class="fas fa-paper-plane me-3"></i>
+                                    <span>Subopción 5</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <a href="javascript:void(0)" class="d-flex align-items-center ripple">
+                        <i class="fas fa-bell me-3"></i>
+                        <span>Opción 4</span>
+                    </a>
+                </li>
+            <?php }
+            if ($_SESSION['rol'] == 1) { ?>
                 <li class="list-group-item enfocar">
                     <a href="../usuarios/gestion.php" class="d-flex align-items-center link-danger">
                         <i class="fas fa-user-lock me-3"></i>

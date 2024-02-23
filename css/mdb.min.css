@@ -2371,7 +2371,7 @@ textarea.form-control-lg {
   width: 100%;
   padding: .375rem 2.25rem .375rem .75rem;
   -moz-padding-start: calc(.75rem - 3px);
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 400;
   line-height: 1.6;
   color: #4f4f4f;

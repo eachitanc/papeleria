@@ -41,10 +41,10 @@ class Tercero
         }
     }
 
-    public function Registrar()
+    public function Registrar(): string
     {
         try {
-            $response = ['status' => false, 'message' => ''];
+            $response = ['status' => 'Error', 'message' => ''];
             $conexion = new Conexion();
             $cmd = $conexion->PDO();
 
@@ -70,20 +70,20 @@ class Tercero
             $sql->bindParam(16, $this->user_reg);
             $sql->execute();
             if ($cmd->lastInsertId() > 0) {
-                $response['status'] = true;
-                $response['message'] = 'Tercero registrado correctamente';
+                $response['status'] = 'ok';
+                $response['id'] = $cmd->lastInsertId();
             } else {
                 $response['message'] = $sql->errorInfo()[2];
             }
-            echo json_encode($response);
         } catch (PDOException $e) {
-            echo $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();
+            $response['message'] = $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();
         }
+        return json_encode($response);
     }
-    public function Modificar()
+    public function Modificar(): string
     {
         try {
-            $response = ['status' => false, 'message' => ''];
+            $response = ['status' => 'Error', 'message' => ''];
             $conexion = new Conexion();
             $cmd = $conexion->PDO();
 
@@ -110,14 +110,13 @@ class Tercero
             $sql->bindParam(17, $this->id_tercero);
             $sql->execute();
             if ($sql->rowCount() > 0) {
-                $response['status'] = true;
-                $response['message'] = 'Tercero modificado correctamente';
+                $response['status'] = 'ok';
             } else {
-                $response['message'] = $sql->errorInfo()[2];
             }
-            echo json_encode($response);
+            return json_encode($response);
         } catch (PDOException $e) {
-            echo $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();
+            $response['message'] = $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();
         }
+        $response['message'] = $sql->errorInfo()[2];
     }
 }

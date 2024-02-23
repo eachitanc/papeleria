@@ -54,3 +54,8 @@ function ToggleStatus(id) {
     var url = 'actualizar/status_user.php';
     FetchData(url, id, 'tableUsuarios', 2)
 }
+function UserSistema() {
+    var url = 'registrar/new_usuario.php';
+    FetchData(url, 'formDataUser', 'tableUsuarios', 1);
+    modalForms.hide();
+}
