@@ -32,19 +32,21 @@ try {
     $resultado = $sql->fetchAll();
     foreach ($resultado as $res) {
         $id =  $res['id_user'];
-        $nombre = $res['nombre1'] . ' ' . $res['nombre2'] . ' ' . $res['apellido1'] . ' ' . $res['apellido2'];
-        $editar = '<button type="button" class="btn btn-sm btn-outline-info btn-floating shadow-4" data-mdb-ripple-color="info" title="Editar"><i class="fas fa-edit fa-lg"></i></button>';
-        $borrar = '<button type="button" class="btn btn-sm btn-outline-danger btn-floating shadow-4" data-mdb-ripple-color="danger" title="Eliminar"><i class="fas fa-trash-alt fa-lg"></i></button>';
-        $status = $res['estado'] == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
-        $color = $res['estado'] == 1 ? 'success' : 'secondary';
-        $estado = '<a href="javascript:void(0)" role="button" class="link-' . $color . '" title="Cambiar Estado" onclick="ToggleStatus(' . $id . ')"><i class="fas ' . $status . ' fa-2x"></i></a>';
-        $data[] = [
-            $id,
-            $res['user'],
-            $nombre,
-            '<div class="text-center">' . $estado . '</div>',
-            '<div class="text-center">' . $editar . ' ' . $borrar . '</div>',
-        ];
+        if ($id != 1) {
+            $nombre = $res['nombre1'] . ' ' . $res['nombre2'] . ' ' . $res['apellido1'] . ' ' . $res['apellido2'];
+            $editar = '<button type="button" class="btn btn-sm btn-outline-info btn-floating shadow-4" data-mdb-ripple-color="info" title="Editar" onclick="EditaUser(' . $id . ')"><i class="fas fa-edit fa-lg"></i></button>';
+            $borrar = '<button type="button" class="btn btn-sm btn-outline-danger btn-floating shadow-4" data-mdb-ripple-color="danger" title="Eliminar" onclick="EliminaUser(' . $id . ')"><i class="fas fa-trash-alt fa-lg"></i></button>';
+            $status = $res['estado'] == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
+            $color = $res['estado'] == 1 ? 'success' : 'secondary';
+            $estado = '<a href="javascript:void(0)" role="button" class="link-' . $color . '" title="Cambiar Estado" onclick="ToggleStatus(' . $id . ')"><i class="fas ' . $status . ' fa-2x"></i></a>';
+            $data[] = [
+                $id,
+                $res['user'],
+                $nombre,
+                '<div class="text-center">' . $estado . '</div>',
+                '<div class="text-center">' . $editar . ' ' . $borrar . '</div>',
+            ];
+        }
     }
 } catch (PDOException $e) {
     echo $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();

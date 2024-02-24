@@ -52,10 +52,30 @@ new DataTable('#tableUsuarios', {
 });
 function ToggleStatus(id) {
     var url = 'actualizar/status_user.php';
-    FetchData(url, id, 'tableUsuarios', 2)
+    FetchData(url, id, 'tableUsuarios', 2);
 }
-function UserSistema() {
-    var url = 'registrar/new_usuario.php';
+function UserSistema(opcion) {
+    var url = opcion == 1 ? 'registrar/new_usuario.php' : 'actualizar/up_usuario.php';
     FetchData(url, 'formDataUser', 'tableUsuarios', 1);
-    modalForms.hide();
+}
+function EditaUser(id) {
+    let url = 'formularios/form_act_usuario.php';
+    let datos = 'id=' + id;
+    MakePOST(url, datos, function (he) {
+        document.getElementById('bodyForms').innerHTML = he;
+    });
+    sizeModal.classList.add('modal-lg');
+    headForms.innerHTML = '<i class="fas fa-user-plus me-3"></i>ACTUALIZAR USUARIO';
+    modalForms.show();
+}
+function EliminaUser(id) {
+    AlertaConfiramar('deleteUser', '¿Seguro?')
+    modalAlert.show();
+    var botonDelete = document.getElementById('deleteUser');
+    botonDelete.onclick = function () {
+        modalAlert.hide();
+        var url = 'eliminar/del_usuario.php';
+        FetchData(url, id, 'tableUsuarios', 2);
+        EliminaBoton('deletUser', 'modalAlertFooter');
+    };
 }

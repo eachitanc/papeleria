@@ -3,13 +3,14 @@ session_start();
 if (!isset($_SESSION['id_user'])) {
     exit('Acceso Denegado');
 }
+$id_user = isset($_POST['id_usuario']) ? $_POST['id_usuario'] : exit('Acceso denegado');
 include('../../config/Conexion.php');
 include('../../config/autoload.php');
 $con = new Conexion();
 $cmd = $con->PDO();
 $date = new DateTime('now', new DateTimeZone('America/Bogota'));
-$response['status'] = 'Error';
 $fecha = $date->format('Y-m-d H:i:s');
+$response['status'] = 'Error';
 $datos = [
     'id_tdoc'       =>  $_POST['slcTipoDoc'],
     'no_doc'        =>  $_POST['numDoc'],
@@ -26,34 +27,37 @@ $datos = [
     'correo'        =>  $_POST['txt_correo'],
     'telefono'      =>  $_POST['txt_telefono'],
     'fecha'       =>  $fecha,
-    'usuario'      =>  $_SESSION['id_user']
+    'usuario'      =>  $_SESSION['id_user'],
+    'id_tercero'    =>  $_POST['id_tercero']
 ];
 
 $tercero = new Tercero($datos);
-$res = $tercero->Registrar();
+$res = $tercero->Modificar();
 $res = json_decode($res, true);
 if ($res['status'] == 'ok') {
-    $id_tercero = $res['id'];
+    $cambio = $res['message'];
     $datos = [
-        'user'       =>  $_POST['txt_user'],
+        'user'         =>  $_POST['txt_user'],
         'clave'        =>  $_POST['txt_pass'],
         'id_rol'       =>  $_POST['slc_rol'],
-        'estado'       =>  '1',
-        'fecha'     =>  $fecha,
+        'fecha'      =>  $fecha,
         'usuario'     => $_SESSION['id_user'],
-        'id_tercero'     => $id_tercero,
+        'id_usuario'   => $id_user,
     ];
     $usuario = new Usuario($datos);
-    $res = $usuario->Registrar();
+    $res = $usuario->Modificar();
     $res = json_decode($res, true);
     if ($res['status'] == 'ok') {
-        $response['status'] = 'ok';
-        $response['msg'] = 'Usuario registrado correctamente';
+        if ($cambio == '1' || $res['message'] == '1') {
+            $response['status'] = 'ok';
+            $response['msg'] = 'Usuario modificado correctamente';
+        } else {
+            $response['msg'] = 'No se realizo ningún cambio nuevo';
+        }
     } else {
         $response['msg'] = $res['message'];
     }
 } else {
     $response['msg'] = $res['message'];
 }
-
 echo json_encode($response);

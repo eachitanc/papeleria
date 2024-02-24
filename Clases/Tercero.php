@@ -15,8 +15,8 @@ class Tercero
     private $direccion;
     private $correo;
     private $telefono;
-    private $fec_reg;
-    private $user_reg;
+    private $fecha;
+    private $usuario;
     private $id_tercero;
     public function __construct($datos)
     {
@@ -34,8 +34,8 @@ class Tercero
         $this->direccion = $datos['direccion'];
         $this->correo = $datos['correo'];
         $this->telefono = $datos['telefono'];
-        $this->fec_reg = $datos['fec_reg'];
-        $this->user_reg = $datos['user_reg'];
+        $this->fecha = $datos['fecha'];
+        $this->usuario = $datos['usuario'];
         if (isset($datos['id_tercero'])) {
             $this->id_tercero = $datos['id_tercero'];
         }
@@ -66,8 +66,8 @@ class Tercero
             $sql->bindParam(12, $this->direccion);
             $sql->bindParam(13, $this->correo);
             $sql->bindParam(14, $this->telefono);
-            $sql->bindParam(15, $this->fec_reg);
-            $sql->bindParam(16, $this->user_reg);
+            $sql->bindParam(15, $this->fecha);
+            $sql->bindParam(16, $this->usuario);
             $sql->execute();
             if ($cmd->lastInsertId() > 0) {
                 $response['status'] = 'ok';
@@ -88,7 +88,7 @@ class Tercero
             $cmd = $conexion->PDO();
 
             $sql = "UPDATE `seg_terceros` SET 
-                        `id_tdoc` = ?,`no_doc` = ?,`nombre1` = ?,`nombre2` = ?,`apellido1` = ?,`apellido2` = ?,`razon social` = ?,`genero` = ?,`id_pais` = ?,`id_dpto` = ?,`id_municipio` = ?,`direccion` = ?,`correo` = ?,`telefono` = ?,`fec_reg` = ?,`user_reg` = ?
+                        `id_tdoc` = ?,`no_doc` = ?,`nombre1` = ?,`nombre2` = ?,`apellido1` = ?,`apellido2` = ?,`razon social` = ?,`genero` = ?,`id_pais` = ?,`id_dpto` = ?,`id_municipio` = ?,`direccion` = ?,`correo` = ?,`telefono` = ?
                     WHERE `id_tercero` = ?";
             $sql = $cmd->prepare($sql);
             $sql->bindParam(1, $this->id_tdoc);
@@ -105,18 +105,28 @@ class Tercero
             $sql->bindParam(12, $this->direccion);
             $sql->bindParam(13, $this->correo);
             $sql->bindParam(14, $this->telefono);
-            $sql->bindParam(15, $this->fec_reg);
-            $sql->bindParam(16, $this->user_reg);
-            $sql->bindParam(17, $this->id_tercero);
-            $sql->execute();
-            if ($sql->rowCount() > 0) {
-                $response['status'] = 'ok';
+            $sql->bindParam(15, $this->id_tercero);
+            if (!($sql->execute())) {
+                $response['message'] = $sql->errorInfo()[2];
             } else {
+                $response['status'] = 'ok';
+                if ($sql->rowCount() > 0) {
+                    $sql = "UPDATE `seg_terceros` SET 
+                                `fec_act` = ?,`user_act` = ?
+                            WHERE `id_tercero` = ?";
+                    $sql = $cmd->prepare($sql);
+                    $sql->bindParam(1, $this->fecha);
+                    $sql->bindParam(2, $this->usuario);
+                    $sql->bindParam(3, $this->id_tercero);
+                    $sql->execute();
+                    $response['message'] = '1';
+                } else {
+                    $response['message'] = '0';
+                }
             }
-            return json_encode($response);
         } catch (PDOException $e) {
             $response['message'] = $e->getCode() == 2002 ? 'Sin Conexión a Mysql (Error: 2002)' : 'Error: ' . $e->getMessage();
         }
-        $response['message'] = $sql->errorInfo()[2];
+        return json_encode($response);
     }
 }

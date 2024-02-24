@@ -24,6 +24,23 @@ document.addEventListener('show.bs.modal', function (event) {
         });
     }, 0);
 }, true);
+function AlertaConfiramar(nom, msg) {
+    var nuevoBoton = document.createElement('button');
+    nuevoBoton.type = 'button';
+    nuevoBoton.className = 'btn btn-sm btn-primary';
+    nuevoBoton.id = nom;
+    nuevoBoton.textContent = 'Si';
+    var footer = document.getElementById('modalAlertFooter');
+    var alerta = document.getElementById('modalAlertMsg');
+    alerta.textContent = msg;
+    var botonExistente = footer.querySelector('button');
+    footer.insertBefore(nuevoBoton, botonExistente);
+}
+function EliminaBoton(cont, elem) {
+    const elemento = document.getElementById(elem);
+    const contenedor = document.querySelector(cont);
+    contenedor.removeChild(elemento);
+}
 function reloadtable(tableId) {
     const table = document.getElementById(tableId);
     if (table && table.classList.contains('dataTable')) {
@@ -97,6 +114,7 @@ function FetchData(url, formulario, table, param) {
             if (r.status == 'ok') {
                 reloadtable(table);
                 ShowAlertsModal(1, 'Proceso realizado correctamente', null);
+                modalForms.hide();
             } else {
                 ShowAlertsModal(2, r.msg, null)
             }

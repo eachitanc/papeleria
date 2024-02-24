@@ -35,7 +35,7 @@
         <div class="modal-content">
             <div class="modal-header text-light bg-warning">
                 <h5 class="modal-title" id="modalAlertLabel">
-                    <span class="fa-solid fa-triangle-exclamation fa-lg"></span> Error
+                    <span class="fa-solid fa-triangle-exclamation fa-lg"></span> Confirmar
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-mdb-dismiss="modal" aria-label="Cerrar"></button>
             </div>
