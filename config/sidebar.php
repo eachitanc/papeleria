@@ -12,7 +12,7 @@ $con = new Conexion();
     <div class="list-group list-group-flush">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <a href="javascript:void(0)" class="d-flex align-items-center ripple link-info">
+                <a href="../inicio/panel_control.php" class="d-flex align-items-center ripple link-info">
                     <i class="fas fa-home fa-lg me-3"></i>
                     <span>INICIO</span>
                 </a>
@@ -32,15 +32,15 @@ $con = new Conexion();
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="javascript:void(0)" class="d-flex align-items-center ripple">
-                                <i class="fas fa-users me-3"></i>
-                                <span>Subopción 2</span>
+                            <a href="../category/categoryini.php" class="d-flex align-items-center ripple">
+                            <i class="far fa-bookmark me-3"></i>
+                                <span>Categoria</span>
                             </a>
                         </li>
                         <li class="list-group-item">
-                            <a href="javascript:void(0)" class="d-flex align-items-center ripple">
-                                <i class="fas fa-chart-bar me-3"></i>
-                                <span>Subopción 3</span>
+                            <a href="../articulos/articuloini.php" class="d-flex align-items-center ripple">
+                            <i class="fas fa-clipboard-list me-3"></i>
+                                <span>Articulos</span>
                             </a>
                         </li>
                     </ul>

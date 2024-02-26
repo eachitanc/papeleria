@@ -7,7 +7,7 @@
         <div id="content" class="active">
             <?php include 'navbar.php' ?>
             <div id="contenido" class="vh-full rounded-1 p-3 bg-light">
-                aqui el contenido
+                
             </div>
             <?php include 'footer.php' ?>
         </div>
